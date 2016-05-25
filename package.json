@@ -1,0 +1,23 @@
+{
+  "name": "whatsapp",
+  "version": "1.0.0",
+  "description": "Chat de whatapp en node js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://mabe1016@github.com/mabe1016/WhatsApp-Chat-con-NodeJs.git"
+  },
+  "author": "Maria Belen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mabe1016/WhatsApp-Chat-con-NodeJs/issues"
+  },
+  "homepage": "https://github.com/mabe1016/WhatsApp-Chat-con-NodeJs#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+	"socket.io": "^1.4.6"
+  }
+}

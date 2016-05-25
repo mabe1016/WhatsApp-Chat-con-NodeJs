@@ -1,0 +1,64 @@
+doctype html
+html(lang="en")
+	head
+		meta(charset="UTF-8")
+		title= WhatsApp - Laboratoria
+		link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous")
+		script(src="https://code.jquery.com/jquery-1.11.1.js")
+		script(src="https://cdn.socket.io/socket.io-1.4.5.js")
+		style(#bienvenida
+		{
+			border: 1px solid #CCC;
+			margin: 10px;
+		}
+		#chat
+		{
+			margin: 10px;
+			border: 1px solid #CCC;
+			display: none;
+		})
+	body
+		#bienvenida.well
+			h3 Hola, por favor ingresa tu nombre para entrar al chat
+			input#nombre.form-control(type="text")
+			button(onclick="guardarNombre()">Entrar)
+
+		#chat.well
+			h1 Bienvenid@ al LABchat
+			p  Preparate para iniciar la mejor conversaciòn de tu vida
+			input#nombre.form-control(type="text")
+			button(onclick="enviarMensaje()">Enviar mensaje)
+			button(onclick="limpiarMensajes()">Limpiar mensajes)
+			ul#lista_mensajes.list-group
+			p(small style="font-size:10px;") Es necesario el registro
+
+
+
+
+			script
+				var socket = io('/');
+				var nombre;
+
+				function guardarNombre()
+				{
+					nombre = $('#nombre').val();
+					$('#bienvenida').hide();
+					$('#chat').show();
+				}
+
+				function enviarMensaje()
+				{
+					socket.emit('chat', "<span class='label label-danger'>" +  nombre + "</span> : " + $('#mensaje').val()  );
+					$('#mensaje').val('');
+					$('#mensaje').focus();
+				}
+
+				function limpiarMensajes()
+				{
+					$('#lista_mensajes').html('');
+				}
+
+				socket.on('nuevo_mensaje', function (_msg)
+				{
+					$('#lista_mensajes').append('<li class="list-group-item">' + _msg + '</li>');
+				});
